@@ -1,0 +1,49 @@
+.game {
+	display: flex;
+	flex: 1;
+}
+
+.map {
+	flex: 1;
+}
+
+.finished {
+	margin: auto;
+}
+
+.finished > * {
+	text-align: center;
+}
+
+.finished > a {
+	display: block;
+	cursor: pointer;
+}
+
+.failMarker {
+	background-color: red;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.successMarker {
+	background-color: green;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.captionMarker > div {
+	z-index: 1000;
+	position: absolute;
+	background-color: white;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.instructions {
+	position: absolute;
+	top: 70px;
+	right: 15px;
+	z-index: 1000;
+}

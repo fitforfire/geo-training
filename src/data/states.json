@@ -1,0 +1,11 @@
+[
+  { "name": "Burgenland", "stateNumber": 1 },
+  { "name": "Kärnten", "stateNumber": 2 },
+  { "name": "Niederösterreich", "stateNumber": 3 },
+  { "name": "Oberösterreich", "stateNumber": 4 },
+  { "name": "Salzburg", "stateNumber": 5 },
+  { "name": "Steiermark", "stateNumber": 6 },
+  { "name": "Tirol", "stateNumber": 7 },
+  { "name": "Vorarlberg", "stateNumber": 8 },
+  { "name": "Wien", "stateNumber": 9 }
+]
