@@ -17,13 +17,17 @@
     "build/*"
   ],
   "devDependencies": {
+    "css-loader": "^0.28.7",
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "if-env": "^1.0.0",
     "json-loader": "^0.5.7",
-    "preact-cli": "^2.0.0"
+    "preact-cli": "^2.0.0",
+    "style-loader": "^0.19.0"
   },
   "dependencies": {
+    "firebase": "^4.6.2",
+    "firebaseui": "^2.4.1",
     "leaflet": "^1.2.0",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",

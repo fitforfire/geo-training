@@ -4,6 +4,7 @@ import GameLogic from '../game';
 import {getStateNumber} from '../../data/geocoder';
 import Instructions from '../instructions/index';
 import {getQueryParam} from '../utils';
+require('leaflet/dist/leaflet.css');
 
 const tileLayers = {
     standard: 'https://feuerwehreinsatz.info/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png',
@@ -130,7 +131,6 @@ export default class Game extends Component {
 		output = (
 		    <div class={style.game}>
                 <div class={style.map} id="map"></div>
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
                 <div class={style.instructions}>
                     <Instructions captionChallange="Finde" countdown={countdown} state={state} captionSelected={captionSelected} selected={selected} challange={challange} />
                 </div>

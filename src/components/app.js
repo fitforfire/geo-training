@@ -7,6 +7,7 @@ import Home from '../routes/home';
 import States from '../routes/states';
 import Towns from '../routes/towns';
 import Game from '../routes/game';
+import Login from '../routes/login';
 
 var ReactGA = require('react-ga');
 ReactGA.initialize('UA-109713396-1');
@@ -37,6 +38,7 @@ export default class App extends Component {
 					<States path="/game/" />
 					<Towns path="/game/:stateName" />
 					<Game path="/game/:stateName/:townName" />
+					<Login path="/login" />
 				</Router>
 			</div>
 		);
