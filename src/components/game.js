@@ -1,6 +1,6 @@
 const {shuffle} = require('./utils');
 const {getGeoData} = require('../data/geocoder');
-
+const {persistHighscore} = require('./firebase-auth');
 
 export default class Game {
     constructor({cityName, stateNumber, onTimeout, onFinish, onTimer}) {
@@ -10,12 +10,17 @@ export default class Game {
         this.cityName = cityName;
         this.points = [];
         this.actualChallangeIndex = -1;
+        this.identifier = stateNumber + "-" + cityName;
         this.dataLoaded = new Promise((resolve) => {
             getGeoData(cityName, stateNumber).then(data => {
                 this.city = data[cityName];
                 resolve();
             });
         });
+    }
+
+    getIdentifier() {
+        return this.identifier;
     }
 
     createRandomChallanges() {
@@ -44,10 +49,11 @@ export default class Game {
         this.actualChallangeIndex++;
         if (this.isFinished()) {
             this.onFinish();
+        } else {
+            this.points[this.actualChallangeIndex] = 100;
+            this.startTimer();
+            return this.__getChallange();
         }
-        this.points[this.actualChallangeIndex] = 100;
-        this.startTimer();
-        return this.__getChallange();
     }
 
     abortChallange() {
@@ -121,6 +127,10 @@ export default class Game {
         });
         const sorted = Object.keys(distances).sort(function(a,b){return distances[a]-distances[b]});
         return sorted;
+    }
+
+    persistHighscore(uid, name) {
+        persistHighscore(uid, this.identifier, name, this.getTotalPoints())
     }
 
 

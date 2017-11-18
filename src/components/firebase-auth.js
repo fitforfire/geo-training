@@ -1,7 +1,7 @@
 const firebase = require('firebase/app');
+const firebaseui = require('firebaseui');
 require('firebase/auth');
-require('firebase/database');
-
+require("firebase/firestore");
 
 const config = {
     apiKey: "AIzaSyBPDPqc5sdeCsQAeY6UsRSkiy2s5QDZkOQ",
@@ -14,6 +14,44 @@ const config = {
 
 const app = firebase.initializeApp(config);
 
+// Initialize Cloud Firestore through Firebase
+const db = firebase.firestore();
+
+function persistHighscore(uid, identifier, name, points) {
+    return new Promise((resolve) => {
+        const ref = db.collection("games").doc(identifier).collection("users").doc(uid);
+        ref.get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                if(data.points < points) {
+                    ref.set({points}).then(() => resolve());
+                } else {
+                    resolve();
+                }
+
+            } else {
+                ref.set({name, points}).then(() => resolve());
+            }
+        });
+    });
+}
+
+function loadHighscore(identifier) {
+    return new Promise((resolve) => {
+        const ref = db.collection("games").doc(identifier).collection("users")
+        const query = ref.where("points", ">=", 0).orderBy("points").limit(50);
+        query.get().then(function(querySnapshot) {
+            const highscore = [];
+            querySnapshot.forEach((doc) => highscore.push(doc.data()));
+            resolve(highscore);
+        });
+    });
+}
+
+// Initialize the FirebaseUI Widget using Firebase.
+var authUi = new firebaseui.auth.AuthUI(firebase.auth());
+
+
 // FirebaseUI config.
 const uiConfig = {
     signInSuccessUrl: '/',
@@ -24,7 +62,7 @@ const uiConfig = {
         // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
         // firebase.auth.GithubAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        //firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
     // Terms of service url.
     tosUrl: '<your-tos-url>'
@@ -32,6 +70,10 @@ const uiConfig = {
 
 module.exports = {
     app,
+    db,
     firebase,
-    uiConfig
+    uiConfig,
+    authUi,
+    persistHighscore,
+    loadHighscore
 };

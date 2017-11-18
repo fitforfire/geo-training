@@ -1,10 +1,13 @@
 import { h, Component } from 'preact';
+
 import style from './style';
 import GameLogic from '../game';
 import {getStateNumber} from '../../data/geocoder';
 import Instructions from '../instructions/index';
+import Highscore from '../../components/highscore/index';
 import {getQueryParam} from '../utils';
 require('leaflet/dist/leaflet.css');
+import {firebase, loadHighscore} from '../firebase-auth';
 
 const tileLayers = {
     standard: 'https://feuerwehreinsatz.info/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png',
@@ -87,6 +90,12 @@ export default class Game extends Component {
     finish() {
         if (this.game.isFinished()) {
             this.setState({finished: true, points: this.game.getTotalPoints()});
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.game.persistHighscore(user.uid, user.displayName);
+                    loadHighscore(this.game.getIdentifier()).then(highscore => this.setState({highscore}));
+                }
+            });
         }
     }
     restart() {
@@ -119,13 +128,14 @@ export default class Game extends Component {
 	componentWillUnmount() {
 	    this.map.remove();
     }
-	render(_, {countdown, captionSelected, selected, challange, state, finished, points}) {
+	render(_, {countdown, captionSelected, selected, challange, state, finished, points, highscore}) {
         let output;
         if(finished) {
             output = (<div class={style.finished}>
                 <h1>Spiel beendet!</h1>
                 <h3>Sie haben {points} Punkte</h3>
                 <a onClick={this.restart}>Neues Spiel starten</a>
+                {highscore ? <Highscore entries={highscore} /> : ''}
             </div>);
         } else {
 		output = (
