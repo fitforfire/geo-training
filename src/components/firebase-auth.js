@@ -24,13 +24,12 @@ function persistHighscore(uid, identifier, name, points) {
             if (doc.exists) {
                 const data = doc.data();
                 if(data.points < points) {
-                    ref.set({points}).then(() => resolve());
+                    ref.set({name, points, tries: data.tries + 1}).then(() => resolve());
                 } else {
                     resolve();
                 }
-
             } else {
-                ref.set({name, points}).then(() => resolve());
+                ref.set({name, points, tries: 1}).then(() => resolve());
             }
         });
     });
@@ -39,7 +38,7 @@ function persistHighscore(uid, identifier, name, points) {
 function loadHighscore(identifier) {
     return new Promise((resolve) => {
         const ref = db.collection("games").doc(identifier).collection("users")
-        const query = ref.where("points", ">=", 0).orderBy("points").limit(50);
+        const query = ref.where("points", ">=", 0).orderBy("points", "desc").limit(50);
         query.get().then(function(querySnapshot) {
             const highscore = [];
             querySnapshot.forEach((doc) => highscore.push(doc.data()));
@@ -47,7 +46,19 @@ function loadHighscore(identifier) {
         });
     });
 }
-
+/*
+function loadMostPopularByUser() {
+    return new Promise((resolve) => {
+        const ref = db.collection("games")
+        const query = ref.where("tries", ">=", 0).orderBy("tries").limit(50);
+        query.get().then(function(querySnapshot) {
+            const highscore = [];
+            querySnapshot.forEach((doc) => highscore.push(doc.data()));
+            resolve(highscore);
+        });
+    });
+}
+*/
 // Initialize the FirebaseUI Widget using Firebase.
 var authUi = new firebaseui.auth.AuthUI(firebase.auth());
 

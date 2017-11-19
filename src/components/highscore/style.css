@@ -1,6 +1,13 @@
+.table {
+	border: 1px solid grey;
+}
+
+.position {
+	padding: 10px;
+}
 .name {
-	margin: 5px;
+	padding: 10px;
 }
 .points {
-	margin: 5px;
+	padding: 10px;
 }
