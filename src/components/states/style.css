@@ -24,6 +24,7 @@
 }
 
 .list > li > a:hover {
-	background-color: lightblue;
+	color: white;
+	background-color: #2E8AE1;
 }
 

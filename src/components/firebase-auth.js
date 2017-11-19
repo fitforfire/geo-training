@@ -38,7 +38,7 @@ function persistHighscore(uid, identifier, name, points) {
 function loadHighscore(identifier) {
     return new Promise((resolve) => {
         const ref = db.collection("games").doc(identifier).collection("users")
-        const query = ref.where("points", ">=", 0).orderBy("points", "desc").limit(50);
+        const query = ref.where("points", ">", 0).orderBy("points", "desc").limit(50);
         query.get().then(function(querySnapshot) {
             const highscore = [];
             querySnapshot.forEach((doc) => highscore.push(doc.data()));

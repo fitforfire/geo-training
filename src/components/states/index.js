@@ -9,7 +9,10 @@ export default class States extends Component {
 
 		return (
 			<div>
-				<h1>Bundesland auswählen</h1>
+				<h1>
+					<span>Bundesland auswählen</span>
+					{items === undefined ? <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> : ""}
+				</h1>
 				<ul class={style.list}>
 					{items}
 				</ul>

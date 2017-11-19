@@ -67,12 +67,11 @@ export default class Game extends Component {
             const location= e.latlng;
             const selected = this.game.findNearest(location)[0];
             const success = this.game.resolveChallange(location);
-            this.setState({state: success, selected: selected, captionSelected: 'Ausgewählt:'});
+            this.setState({state: success});
             const marker = this.game.getMarkerOfChallange(selected);
             this.showChallangeMarker({latLng: location, caption: selected, marker, success, timeout: 3000}).then(() => {
-                this.setState({captionSelected: undefined, selected: undefined, state: undefined});
-                if (success) {
-                    this.setState({challange: this.game.startAndGetChallange()});
+                if (!success) {
+                    this.setState({state: undefined});
                 }
             });
         });
@@ -83,9 +82,7 @@ export default class Game extends Component {
     timeout(challange) {
         const success = false;
         const marker = this.game.getMarkerOfChallange(challange);
-        this.showChallangeMarker({caption: challange, marker, success, timeout: 5000, zoomTo: true}).then(() => {
-            this.setState({challange: this.game.startAndGetChallange()});
-        });
+        this.showChallangeMarker({caption: challange, marker, success, zoomTo: true});
     }
     finish() {
         if (this.game.isFinished()) {
@@ -103,27 +100,38 @@ export default class Game extends Component {
     }
 	showChallangeMarker({latLng, caption, marker, success, timeout, zoomTo}) {
         return new Promise(resolve => {
-            const pointLayer = new L.FeatureGroup().addTo(this.map);
-            const captionLayer = new L.FeatureGroup().addTo(this.map);
+            this.removeChallangeMarker();
+            this.pointLayer = new L.FeatureGroup().addTo(this.map);
+            this.captionLayer = new L.FeatureGroup().addTo(this.map);
             Object.keys(marker).map(key => {
                 const pointIcon = L.divIcon({className: (success ? style.successMarker : style.failMarker), html: "<div></div>"});
-                L.marker([marker[key][1], marker[key][0]], {icon: pointIcon}).addTo(pointLayer);
+                L.marker([marker[key][1], marker[key][0]], {icon: pointIcon}).addTo(this.pointLayer);
             });
             if (!latLng) {
-                latLng = pointLayer.getBounds().getCenter();
+                latLng = this.pointLayer.getBounds().getCenter();
             }
             const captionMarker = L.divIcon({className: style.captionMarker, html: "<div>" + caption + "</div>"})
-            L.marker(latLng, {icon: captionMarker, zIndexOffset: 1000}).addTo(captionLayer);
+            L.marker(latLng, {icon: captionMarker, zIndexOffset: 1000}).addTo(this.captionLayer);
             if (zoomTo) {
-                //this.map.fitBounds(pointLayer.getBounds());
+                //this.map.fitBounds(this.pointLayer.getBounds());
                 this.map.panTo(latLng, {duration: 1});
             }
-            window.setTimeout(() => {
-                pointLayer.clearLayers();
-                captionLayer.clearLayers();
+            !success && timeout && window.setTimeout(() => {
+                this.removeChallangeMarker();
                 resolve();
             }, timeout);
         });
+    }
+    removeChallangeMarker() {
+        this.pointLayer && this.pointLayer.clearLayers();
+        this.captionLayer && this.captionLayer.clearLayers();
+    }
+    skip() {
+        this.game.abortChallange();
+    }
+    next() {
+        this.removeChallangeMarker();
+        this.setState({state: undefined, challange: this.game.startAndGetChallange()});
     }
 	componentWillUnmount() {
 	    this.map.remove();
@@ -142,7 +150,7 @@ export default class Game extends Component {
 		    <div class={style.game}>
                 <div class={style.map} id="map"></div>
                 <div class={style.instructions}>
-                    <Instructions captionChallange="Finde" countdown={countdown} state={state} captionSelected={captionSelected} selected={selected} challange={challange} />
+                    <Instructions onSkip={() => this.skip()} onNext={() => this.next()} captionChallange="Finde" countdown={countdown} state={state} captionSelected={captionSelected} selected={selected} challange={challange} />
                 </div>
             </div>
                 );

@@ -19,10 +19,10 @@ export default class Home extends Component {
 		}
 		return (
 			<div class={style.wrapper}>
-				<h1>Geo-Training</h1>
 				<h3>Teilprojekt von feuerwehreinsatz.info</h3>
 
 				{login}
+
 				<p><Link href="/game">Zur Spielauswahl &gt; &gt;</Link></p>
 
 				<p class={style.motivation}>
@@ -34,7 +34,7 @@ export default class Home extends Component {
 					</p>
 					<p>
 						Dabei ist es aber trotzdem wichtig, dass gewisse Grundkenntisste nicht verloren gehen.
-						Z.B. soll jedes Mitglied einer Einsatzorganisation wie Feuerwehr, Polizeit oder Rettung
+						Z.B. soll jedes Mitglied einer Einsatzorganisation wie Feuerwehr, Polizei oder Rettung
 						in der Lage sein Straßen oder Orte ohne Zuhilfename elektronischer Hilfsmittel zu finden.
 					</p>
 					<p>

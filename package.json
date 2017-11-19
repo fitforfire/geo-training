@@ -28,6 +28,7 @@
   "dependencies": {
     "firebase": "^4.6.2",
     "firebaseui": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "leaflet": "^1.2.0",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",

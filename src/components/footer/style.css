@@ -1,15 +1,15 @@
-.header {
+.footer {
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 56px;
 	padding: 0;
-	background: #0055A4;
+	background: #2E8AE1;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	z-index: 50;
 }
 
-.header h1 {
+.footer h1 {
 	float: left;
 	margin: 0;
 	font-size: 24px;
@@ -18,9 +18,9 @@
 	color: #FFF;
 }
 
-.header h1 a,
-.header h1 a:hover,
-.header h1 a:visited {
+.footer h1 a,
+.footer h1 a:hover,
+.footer h1 a:visited {
 	padding: 0 15px;
 	display: inline-block;
 	color: #FFF;
@@ -28,12 +28,12 @@
 	background: rgba(0,0,0,0.2);
 }
 
-.header nav {
+.footer nav {
 	float: right;
 	font-size: 100%;
 }
 
-.header nav a {
+.footer nav a {
 	display: inline-block;
 	height: 56px;
 	line-height: 56px;
@@ -46,11 +46,11 @@
 	will-change: background-color;
 }
 
-.header nav a:hover,
-.header nav a:active {
+.footer nav a:hover,
+.footer nav a:active {
 	background: rgba(0,0,0,0.2);
 }
 
-.header nav a.active {
+.footer nav a.active {
 	background: rgba(0,0,0,0.4);
 }

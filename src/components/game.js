@@ -59,6 +59,7 @@ export default class Game {
     abortChallange() {
         this.stopTimer();
         this.points[this.actualChallangeIndex] = 0;
+        this.onTimer(0);
         this.onTimeout(this.__getChallange());
         if (this.isFinished()) {
             this.onFinish();
@@ -103,6 +104,7 @@ export default class Game {
             }
             this.onTimer(this.points[this.actualChallangeIndex]);
         }, 1000);
+        this.onTimer(this.points[this.actualChallangeIndex]);
     }
 
     stopTimer() {

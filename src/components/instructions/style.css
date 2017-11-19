@@ -1,4 +1,5 @@
 .instructions {
+    text-align: right;
     font-size: 20px;
     background-color: #fff;
     padding: 10px;
@@ -14,6 +15,18 @@
     border-color: green;
 }
 
-.caption {
+.challange {
     font-weight: bold;
+    margin: 0 5px;
+}
+
+.skip:not(:empty) {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.next:not(:empty) {
+    margin-top: 10px;
+    font-weight: bold;
+    cursor: pointer;
 }

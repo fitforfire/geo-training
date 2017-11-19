@@ -11,7 +11,7 @@ export default class GamePage extends Component {
         const stateNumber = getStateNumber(stateName);
         loadHighscore(stateNumber + "-" + townName).then(highscore => this.setState({highscore}));
 	}
-	start() {
+	start = () => {
 		this.setState({start: true});
 	}
 	render({ stateName, townName}, {start, highscore}) {

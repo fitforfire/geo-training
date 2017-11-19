@@ -3,7 +3,9 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Header from './header';
+import Footer from './footer';
 import Home from '../routes/home';
+import About from '../routes/about';
 import States from '../routes/states';
 import Towns from '../routes/towns';
 import Game from '../routes/game';
@@ -39,7 +41,9 @@ export default class App extends Component {
 					<Towns path="/game/:stateName" />
 					<Game path="/game/:stateName/:townName" />
 					<Login path="/login" />
+					<About path="/about" />
 				</Router>
+				<Footer />
 			</div>
 		);
 	}
