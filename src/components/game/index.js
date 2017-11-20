@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 
 import style from './style';
+import common from '../common';
 import GameLogic from '../game';
 import {getStateNumber} from '../../data/geocoder';
 import Instructions from '../instructions/index';
@@ -142,7 +143,7 @@ export default class Game extends Component {
             output = (<div class={style.finished}>
                 <h1>Spiel beendet!</h1>
                 <h3>Sie haben {points} Punkte</h3>
-                <a onClick={this.restart}>Neues Spiel starten</a>
+                <a class={common.button} onClick={this.restart}>Neues Spiel starten</a>
                 {highscore ? <Highscore entries={highscore} /> : ''}
             </div>);
         } else {

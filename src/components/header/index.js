@@ -25,7 +25,7 @@ export default class Header extends Component {
     	if (!user) {
     		auth = (<Link activeClassName={style.active} href="/login">Login</Link>);
 		} else {
-    		auth = (<a activeClassName={style.active} onClick={this.logout}>{user.displayName}</a>);
+    		auth = (<Link activeClassName={style.active} href="/profile">{user.displayName}</Link>);
 		}
 
 		return (

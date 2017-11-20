@@ -1,6 +1,6 @@
 {
-  "name": "geo-training",
-  "short_name": "geo-training",
+  "name": "geoTraining.at - Feuerwehreinsatz.info",
+  "short_name": "geoTraining",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

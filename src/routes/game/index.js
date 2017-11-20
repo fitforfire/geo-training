@@ -4,6 +4,7 @@ import Highscore from '../../components/highscore/index';
 import {loadHighscore} from '../../components/firebase-auth';
 import {getStateNumber} from '../../data/geocoder';
 import style from './style';
+import common from '../../components/common';
 
 export default class GamePage extends Component {
 	constructor({stateName, townName}) {
@@ -24,7 +25,7 @@ export default class GamePage extends Component {
 				<div class={style.introduction}>
 					<h1>Straßen/Orte</h1>
 					<h2>{townName}</h2>
-					<button onClick={this.start}>Spiel starten</button>
+					<button class={common.button} onClick={this.start}>Spiel starten</button>
 					<Highscore entries={highscore} />
 				</div>
 			);

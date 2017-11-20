@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import {firebase} from '../../components/firebase-auth';
 import style from './style';
+import common from '../common';
 
 export default class Home extends Component {
     constructor() {
@@ -23,7 +24,7 @@ export default class Home extends Component {
 
 				{login}
 
-				<p><Link href="/game">Zur Spielauswahl &gt; &gt;</Link></p>
+				<Link href="/game" class={common.button}>Zur Spielauswahl <i class="fa fa-angle-double-right" aria-hidden="true"></i></Link>
 
 				<p class={style.motivation}>
 					<h3>
