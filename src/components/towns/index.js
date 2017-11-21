@@ -20,7 +20,7 @@ export default class Towns extends Component {
 			<div>
 				<h1>
 					<span>Gemeinde auswählen</span>
-                    {items === undefined ? <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> : ""}
+                    {items === undefined ? <i class="fa fa-cog fa-spin" aria-hidden="true"></i> : ""}
 				</h1>
 				<ul class={style.list}>
 					<li><input class={style.search} placeholder="Suchen..." autofocus onKeyUp={e => this.setState({filter: e.target.value})} /></li>

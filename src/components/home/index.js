@@ -34,9 +34,9 @@ export default class Home extends Component {
 						Elektronische Helfer wie Feuerwehreinsatz.info oder Google Maps unterstützen uns immer mehr in unserem täglichen Tagesablauf.
 					</p>
 					<p>
-						Dabei ist es aber trotzdem wichtig, dass gewisse Grundkenntisste nicht verloren gehen.
+						Dabei ist es aber trotzdem wichtig, dass gewisse Grundkenntnisse nicht verloren gehen.
 						Z.B. soll jedes Mitglied einer Einsatzorganisation wie Feuerwehr, Polizei oder Rettung
-						in der Lage sein Straßen oder Orte ohne Zuhilfename elektronischer Hilfsmittel zu finden.
+						in der Lage sein Straßen oder Orte ohne Zuhilfenahme elektronischer Hilfsmittel zu finden.
 					</p>
 					<p>
 						Geo-Training.at soll dabei helfen dieses Wissen spielerisch aufzubauen und dabei die Ortskunde wieder attraktiver machen.

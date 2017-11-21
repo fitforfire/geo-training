@@ -76,7 +76,7 @@ const uiConfig = {
         //firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
     // Terms of service url.
-    tosUrl: '<your-tos-url>'
+    tosUrl: '/'
 };
 
 module.exports = {

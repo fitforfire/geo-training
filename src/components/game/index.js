@@ -51,6 +51,10 @@ export default class Game extends Component {
             bounds: [[46.358770, 8.782379], [49.037872, 17.189532]]
         }).addTo(this.map);
 
+        this.tilesLoaded = new Promise((resolve) => {
+            tiles.on("load", () => resolve());
+        });
+
         this.game.createRandomChallanges().then(() => {
             const centerOfAll = getCenterOfAllMarker(this.game.getAllMarker());
             if (this.lat && this.lng) {
@@ -58,7 +62,11 @@ export default class Game extends Component {
             } else {
                 this.map.setView(centerOfAll, this.z);
             }
-            this.setState({challange: this.game.startAndGetChallange()});
+            this.tilesLoaded.then(() => {
+                setTimeout(() => {
+                    this.setState({challange: this.game.startAndGetChallange()});
+                }, 1000);
+            });
         });
 
         this.map.on('click', (e) => {
