@@ -8,6 +8,7 @@ import Home from '../routes/home';
 import About from '../routes/about';
 import States from '../routes/states';
 import Towns from '../routes/towns';
+import Games from '../routes/games';
 import Game from '../routes/game';
 import Login from '../routes/login';
 import Profile from '../routes/profile';
@@ -40,7 +41,8 @@ export default class App extends Component {
 					<Home path="/" />
 					<States path="/game/" />
 					<Towns path="/game/:stateName" />
-					<Game path="/game/:stateName/:townName" />
+					<Games path="/game/:stateName/:townName" />
+					<Game path="/game/:stateName/:townName/:gameName" />
 					<Login path="/login" />
 					<About path="/about" />
 					<Profile path="/profile" />

@@ -35,6 +35,14 @@ function persistHighscore(uid, identifier, name, points) {
     });
 }
 
+function getHighscoreIdentifiert(stateNumber, townName, gameName) {
+    let postfix = "";
+    if(gameName !== 'street') {
+        postfix = "-" + gameName;
+    }
+    return stateNumber + "-" + townName + postfix;
+}
+
 function loadHighscore(identifier) {
     return new Promise((resolve) => {
         const ref = db.collection("games").doc(identifier).collection("users")
@@ -85,6 +93,7 @@ module.exports = {
     firebase,
     uiConfig,
     authUi,
+    getHighscoreIdentifiert,
     persistHighscore,
     loadHighscore
 };

@@ -7,6 +7,14 @@ function shuffle(input) {
     return a;
 }
 
+function urldecode(url) {
+    return url.replace(/_/g, " ");
+}
+
+function urlencode(url) {
+    return url.replace(/ /g, "_");
+}
+
 
 function getQueryParam(name) {
     if (typeof document !== "undefined")
@@ -27,6 +35,8 @@ function getQueryParam(name) {
 }
 
 export {
+    urldecode,
+    urlencode,
     shuffle,
     getQueryParam
 };

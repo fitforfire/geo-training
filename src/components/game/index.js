@@ -6,7 +6,7 @@ import GameLogic from '../game';
 import {getStateNumber} from '../../data/geocoder';
 import Instructions from '../instructions/index';
 import Highscore from '../../components/highscore/index';
-import {getQueryParam} from '../utils';
+import {getQueryParam, urldecode} from '../utils';
 require('leaflet/dist/leaflet.css');
 import {firebase, loadHighscore} from '../firebase-auth';
 
@@ -28,11 +28,12 @@ function getCenterOfAllMarker(allMarker) {
 
 
 export default class Game extends Component {
-    constructor({stateName, townName}) {
+    constructor({stateName, townName, gameName}) {
         super();
+        townName = urldecode(townName);
         this.state.finished = false;
         const stateNumber = getStateNumber(stateName);
-        this.game = new GameLogic({cityName: townName, stateNumber, onTimer: (points) => this.timer(points), onFinish: () => this.finish(), onTimeout: (challange) => this.timeout(challange)});
+        this.game = new GameLogic({cityName: townName, stateNumber, gameName, onTimer: (points) => this.timer(points), onFinish: () => this.finish(), onTimeout: (challange) => this.timeout(challange)});
         this.lat = getQueryParam('lat');
         this.lng = getQueryParam('lng');
         this.z = getQueryParam('z') || 14;

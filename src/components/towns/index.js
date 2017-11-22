@@ -1,9 +1,8 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import {getTowns} from '../../data/geocoder';
+import {urlencode} from '../../components/utils';
 import style from './style';
-
-
 
 export default class Towns extends Component {
 	constructor({stateName}) {
@@ -14,7 +13,7 @@ export default class Towns extends Component {
 	render({stateName}, {towns, filter}) {
         filter = filter || '';
         const items = towns.filter(s => s.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-			.map(town => (<li><Link href={"/game/" + stateName + "/" + town}>{town}</Link></li>));
+			.map(town => (<li><Link href={"/game/" + stateName + "/" + urlencode(town)}>{town}</Link></li>));
 
 		return (
 			<div>

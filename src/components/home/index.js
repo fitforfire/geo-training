@@ -41,6 +41,21 @@ export default class Home extends Component {
 					<p>
 						Geo-Training.at soll dabei helfen dieses Wissen spielerisch aufzubauen und dabei die Ortskunde wieder attraktiver machen.
 					</p>
+					<h3>
+						Datenherkunft
+					</h3>
+					<p>
+						GeoTraning verwendet als Grunddaten für Adressen und Hofnamen die Daten des "Österreichisches Adressregister, Stichtagsdaten vom 01.10.2017"
+					</p>
+					<p>
+						Die Hintergrundkarte (Satelitenbild) wird über den Dienst <a href="https://basemap.at" target="_blank">basemap.at</a> bereitgestellt.
+					</p>
+					<p>
+						All diese Daten sind als "Open Government Data" öffentlich und kostenlos verfügbar (<a href="https://www.data.gv.at/" target="_blank">https://www.data.gv.at/</a>)
+					</p>
+					<p>
+						Sollten Daten falsch oder unvollständig sein bitte mit der jeweiligen Gemeinde Kontakt aufnehmen oder den <a href="http://www.geoland.at/geo_webgis/init.aspx?karte=basemap&darstellungsvariante=dv_fb&toolid=8f5e96d9-4884-406a-9801-fe9de4af9290" target="_blank">Datenfehler hier melden</a>
+					</p>
 				</p>
 			</div>
 		);

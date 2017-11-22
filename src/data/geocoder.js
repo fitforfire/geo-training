@@ -1,8 +1,13 @@
-const states = require('./states.json');
+const states = require('./states.json')
 
-const getGeoData = function(city, stateNumber) {
+const gameUrl = {
+    street: 'https://geocode.at/dictionary',
+    manor: 'https://geocode.at/hofname/dictionary'
+};
+
+const getGeoData = function(city, stateNumber, gameName) {
     return new Promise((resolve, reject) => {
-        fetch('https://geocode.at/dictionary?city=' + city + "&state=" + stateNumber).then(function(response) {
+        fetch(gameUrl[gameName] + '?city=' + city + "&state=" + stateNumber).then(function(response) {
             return response.json();
         }).then(function(json) {
             resolve(json);
@@ -14,7 +19,6 @@ const getGeoData = function(city, stateNumber) {
 
 const getTowns = function({stateName, stateNumber}) {
     stateNumber = stateNumber || getStateNumber(stateName);
-    console.log("statenumber", stateNumber);
     return new Promise((resolve, reject) => {
         fetch('https://geocode.at/autocomplete?state=' + stateNumber).then(function(response) {
             return response.json();

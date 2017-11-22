@@ -1,18 +1,19 @@
-const {shuffle} = require('./utils');
+const {shuffle, urldecode} = require('./utils');
 const {getGeoData} = require('../data/geocoder');
-const {persistHighscore} = require('./firebase-auth');
+const {persistHighscore, getHighscoreIdentifiert} = require('./firebase-auth');
 
 export default class Game {
-    constructor({cityName, stateNumber, onTimeout, onFinish, onTimer}) {
+    constructor({cityName, stateNumber, gameName, onTimeout, onFinish, onTimer}) {
+        cityName = urldecode(cityName);
         this.onTimeout = onTimeout || function(){};
         this.onTimer = onTimer || function(){};
         this.onFinish = onFinish || function(){};
         this.cityName = cityName;
         this.points = [];
         this.actualChallangeIndex = -1;
-        this.identifier = stateNumber + "-" + cityName;
+        this.identifier = getHighscoreIdentifiert(stateNumber, cityName, gameName);
         this.dataLoaded = new Promise((resolve) => {
-            getGeoData(cityName, stateNumber).then(data => {
+            getGeoData(cityName, stateNumber, gameName).then(data => {
                 this.city = data[cityName];
                 resolve();
             });
