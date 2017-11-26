@@ -1,6 +1,6 @@
 const {shuffle, urldecode} = require('./utils');
 const {getGeoData} = require('../data/geocoder');
-const {persistHighscore, getHighscoreIdentifiert} = require('./firebase-auth');
+const {persistHighscore, persistAnonymousHighscore, getHighscoreIdentifiert} = require('./firebase-auth');
 
 export default class Game {
     constructor({cityName, stateNumber, gameName, onTimeout, onFinish, onTimer}) {
@@ -133,7 +133,11 @@ export default class Game {
     }
 
     persistHighscore(uid, name) {
-        persistHighscore(uid, this.identifier, name, this.getTotalPoints())
+        return persistHighscore(uid, this.identifier, name, this.getTotalPoints());
+    }
+
+    persistAnonymousHighscore() {
+        return persistAnonymousHighscore(this.identifier, this.getTotalPoints());
     }
 
 

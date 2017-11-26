@@ -100,8 +100,10 @@ export default class Game extends Component {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     this.game.persistHighscore(user.uid, user.displayName);
-                    loadHighscore(this.game.getIdentifier()).then(highscore => this.setState({highscore}));
+                } else {
+                    this.game.persistAnonymousHighscore();
                 }
+                loadHighscore(this.game.getIdentifier()).then(highscore => this.setState({highscore}));
             });
         }
     }

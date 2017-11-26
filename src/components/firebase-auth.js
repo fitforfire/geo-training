@@ -3,6 +3,8 @@ const firebaseui = require('firebaseui');
 require('firebase/auth');
 require("firebase/firestore");
 
+const highscoreLength = 25;
+
 const config = {
     apiKey: "AIzaSyBPDPqc5sdeCsQAeY6UsRSkiy2s5QDZkOQ",
     authDomain: "geo-training-608f8.firebaseapp.com",
@@ -35,6 +37,14 @@ function persistHighscore(uid, identifier, name, points) {
     });
 }
 
+function persistAnonymousHighscore(identifier, points) {
+    return new Promise((resolve) => {
+        const timestamp = Date.now();
+        const ref = db.collection("games").doc(identifier).collection("anonymous").doc(timestamp.toString());
+        ref.set({points, timestamp}).then(() => resolve());
+    });
+}
+
 function getHighscoreIdentifiert(stateNumber, townName, gameName) {
     let postfix = "";
     if(gameName !== 'street') {
@@ -45,11 +55,24 @@ function getHighscoreIdentifiert(stateNumber, townName, gameName) {
 
 function loadHighscore(identifier) {
     return new Promise((resolve) => {
-        const ref = db.collection("games").doc(identifier).collection("users")
-        const query = ref.where("points", ">", 0).orderBy("points", "desc").limit(50);
-        query.get().then(function(querySnapshot) {
+        const userRef = db.collection("games").doc(identifier).collection("users");
+        const userQuery = userRef.where("points", ">", 0).orderBy("points", "desc").limit(highscoreLength);
+        const anonymousRef = db.collection("games").doc(identifier).collection("anonymous");
+        const anonymousQuery = anonymousRef.where("points", ">", 0).orderBy("points", "desc").limit(highscoreLength);
+        Promise.all([userQuery.get(), anonymousQuery.get()]).then(function([userSnapshot, anonymousSnapshot]) {
             const highscore = [];
-            querySnapshot.forEach((doc) => highscore.push(doc.data()));
+            userSnapshot.forEach((doc) => highscore.push(doc.data()));
+            anonymousSnapshot.forEach((doc) => {
+                if(highscore.length < highscoreLength) {
+                    const data = doc.data();
+                    data.name = "Nicht angemeldet";
+                    highscore.push(data)
+                }
+            });
+
+            highscore.sort(function(a, b) {
+                return b.points - a.points;
+            });
             resolve(highscore);
         });
     });
@@ -95,5 +118,6 @@ module.exports = {
     authUi,
     getHighscoreIdentifiert,
     persistHighscore,
+    persistAnonymousHighscore,
     loadHighscore
 };
