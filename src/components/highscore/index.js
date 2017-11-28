@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style';
-import {firebase} from '../firebase-auth';
+import {getUser} from '../firebase-auth';
 
 
 export default class Highscore extends Component {
     constructor() {
         super();
-        firebase.auth().onAuthStateChanged((user) => {
+        getUser((user) => {
             this.setState({user});
         });
     }

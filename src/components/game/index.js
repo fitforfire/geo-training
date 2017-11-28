@@ -8,7 +8,7 @@ import Instructions from '../instructions/index';
 import Highscore from '../../components/highscore/index';
 import {getQueryParam, urldecode} from '../utils';
 require('leaflet/dist/leaflet.css');
-import {firebase, loadHighscore} from '../firebase-auth';
+import {getUser, loadHighscore} from '../firebase-auth';
 
 const tileLayers = {
     standard: 'https://feuerwehreinsatz.info/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png',
@@ -97,7 +97,7 @@ export default class Game extends Component {
     finish() {
         if (this.game.isFinished()) {
             this.setState({finished: true, points: this.game.getTotalPoints()});
-            firebase.auth().onAuthStateChanged((user) => {
+            getUser((user) => {
                 if (user) {
                     this.game.persistHighscore(user.uid, user.displayName);
                 } else {

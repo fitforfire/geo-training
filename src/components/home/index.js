@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
-import {firebase} from '../../components/firebase-auth';
+import {getUser} from '../../components/firebase-auth';
 import style from './style';
 import common from '../common';
 
 export default class Home extends Component {
     constructor() {
         super();
-        firebase.auth().onAuthStateChanged((user) => {
+        getUser((user) => {
             this.setState({user});
         });
     }
