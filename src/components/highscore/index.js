@@ -15,7 +15,7 @@ export default class Highscore extends Component {
 		if (entries === undefined) {
             return (
 			<div>
-				<h1>Bestenliste <i class="fa fa-cog fa-spin" aria-hidden="true"></i></h1>
+				<h2>Bestenliste <i class="fa fa-cog fa-spin" aria-hidden="true"></i></h2>
 			</div>
             	);
 		}

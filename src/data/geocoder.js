@@ -37,6 +37,13 @@ const getStateNumber = function(stateName) {
     }
 };
 
+const getStateName = function(stateNumber) {
+    const state = states.filter(state => state.stateNumber === stateNumber)[0];
+    if (state) {
+        return state.stateNumber;
+    }
+};
+
 
 
 module.exports = {

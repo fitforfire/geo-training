@@ -1,0 +1,26 @@
+.breadcrumb {
+	background-color: #2E8AE1;
+}
+
+.breadcrumb ul {
+	margin: 0;
+	padding: 0;
+}
+
+.breadcrumb li {
+	display: inline-block;
+}
+
+.breadcrumb li a {
+	font-weight: bold;
+	display: inline-block;
+	padding: 10px;
+	text-decoration: none;
+	color: white;
+}
+
+.breadcrumb li:not(:last-child):after {
+	color: white;
+	margin: 5px;
+	content: ">";
+}

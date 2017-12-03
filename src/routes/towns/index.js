@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import SearchableList from '../../components/searchableList/index';
 import {getTowns} from '../../data/geocoder';
+import Breadcrumb from '../../components/breadcrumb/index';
 import style from './style';
 
 export default class TownsPage extends Component {
@@ -11,9 +12,17 @@ export default class TownsPage extends Component {
         	this.setState({towns: towns.map((town) => ({caption: town, link: '/game/' + stateName + '/' + town}))})
         });
 	}
-    render(_, { towns }) {
+    render({stateName}, { towns }) {
+        const breadcrumb = [{
+            link: '/',
+            caption: 'Home'
+        }, {
+            link: '/game/' + stateName,
+            caption: stateName
+        }];
         return (
 			<div class={style.towns}>
+                <Breadcrumb entries={breadcrumb} />
 				<SearchableList data={towns} headline="Ort auswählen"></SearchableList>
 			</div>
         );

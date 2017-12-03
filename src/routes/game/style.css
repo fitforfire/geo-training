@@ -1,5 +1,7 @@
 .introduction {
 	margin: auto;
+	padding: 15px;
+	max-width: 640px;
 }
 
 .introduction button{

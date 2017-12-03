@@ -8,12 +8,11 @@
     ],
     "redirects": [ {
       "source" : "/game/Salzburg/Saalfelden",
-      "destination" : "/game/Salzburg/Saalfelden%20am%20Steinernen%20Meer",
+      "destination" : "/game/Salzburg/Saalfelden_am_Steinernen_Meer",
       "type" : 301
     }],
     "rewrites": [
       {
-
         "source": "**",
         "destination": "/index.html"
       }

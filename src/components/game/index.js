@@ -4,6 +4,7 @@ import style from './style';
 import common from '../common';
 import GameLogic from '../game';
 import {getStateNumber} from '../../data/geocoder';
+import Sharing from '../../components/sharing/index';
 import Instructions from '../instructions/index';
 import Highscore from '../../components/highscore/index';
 import {getQueryParam, urldecode} from '../utils';
@@ -148,7 +149,7 @@ export default class Game extends Component {
 	componentWillUnmount() {
 	    this.map.remove();
     }
-	render(_, {countdown, captionSelected, selected, challange, state, finished, points, highscore}) {
+	render({stateName, townName}, {countdown, captionSelected, selected, challange, state, finished, points, highscore}) {
         let output;
         if(finished) {
             output = (<div class={style.finished}>
@@ -156,6 +157,7 @@ export default class Game extends Component {
                 <h3>Sie haben {points} Punkte</h3>
                 <a class={common.button} onClick={this.restart}>Neues Spiel starten</a>
                 {highscore ? <Highscore entries={highscore} /> : ''}
+                <Sharing url={'/game/' + stateName + '/' + townName} name={urldecode(townName)} />
             </div>);
         } else {
 		output = (

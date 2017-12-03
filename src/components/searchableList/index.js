@@ -11,10 +11,10 @@ export default class SearchableList extends Component {
 
 		return (
 			<div>
-				<h1>
+				<h2>
 					<span>{headline}</span>
                     {data === undefined ? <i class="fa fa-cog fa-spin" aria-hidden="true"></i> : ""}
-				</h1>
+				</h2>
 				<ul class={style.list}>
 					{searchable ? <li><input class={style.search} placeholder="Suchen..." autofocus onKeyUp={e => this.setState({filter: e.target.value})} /></li> : ""}
 					{items}
