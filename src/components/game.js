@@ -2,6 +2,8 @@ const {shuffle, urldecode} = require('./utils');
 const {getGeoData} = require('../data/geocoder');
 const {persistHighscore, persistAnonymousHighscore, getHighscoreIdentifiert} = require('./firebase-auth');
 
+const totalNumberOfChallanges = 6;
+
 export default class Game {
     constructor({cityName, stateNumber, gameName, onTimeout, onFinish, onTimer}) {
         cityName = urldecode(cityName);
@@ -26,7 +28,7 @@ export default class Game {
 
     createRandomChallanges() {
         return this.dataLoaded.then(() => {
-            this.challanges = shuffle(Object.keys(this.city)).slice(0,5);
+            this.challanges = shuffle(Object.keys(this.city)).slice(0,totalNumberOfChallanges);
         });
     }
 
@@ -94,6 +96,10 @@ export default class Game {
             this.points[this.actualChallangeIndex] -= 25;
             return false;
         }
+    }
+
+    reducePoints(points) {
+        this.points[this.actualChallangeIndex] -= points;
     }
 
     startTimer() {

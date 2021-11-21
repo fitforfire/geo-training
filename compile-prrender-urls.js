@@ -1,6 +1,7 @@
 require('isomorphic-fetch');
 const fs = require('fs');
 //const utils = require('./src/components/utils.js');
+const {getTowns} = require('./src/data/geocoder');
 
 const states = [
     { "name": "Burgenland", "stateNumber": 1 },
@@ -27,9 +28,7 @@ function urlencode(url) {
 
 const fetches = [];
 for(let i = 1; i <= 9; i++) {
-    fetches[i-1] = fetch('https://geocode.at/autocomplete?state=' + i).then(function(response) {
-        return response.json();
-    });
+    fetches[i-1] = getTowns({stateNumber: i});
 }
 Promise.all(fetches).then(function(jsons) {
     jsons.map((j) => console.log(j));

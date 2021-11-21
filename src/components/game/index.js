@@ -16,6 +16,10 @@ const tileLayers = {
     satelite: 'https://feuerwehreinsatz.info/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg'
 };
 
+const overlayLayers = {
+    satelite: 'https://feuerwehreinsatz.info/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png'
+}
+
 function getCenterOfAllMarker(allMarker) {
     const pointLayer = new L.FeatureGroup();
     Object.keys(allMarker).map(name => {
@@ -43,7 +47,6 @@ export default class Game extends Component {
         const Map = require('leaflet').Map;
         const L = require('leaflet');
         const TileLayer = require('leaflet').TileLayer;
-
         this.map = new Map('map');
 
         const tiles = new TileLayer(tileLayers.satelite, {
@@ -52,6 +55,13 @@ export default class Game extends Component {
             subdomains: ['', '1', '2', '3', '4'],
             bounds: [[46.358770, 8.782379], [49.037872, 17.189532]]
         }).addTo(this.map);
+
+        this.overlay = new TileLayer(overlayLayers.satelite, {
+            HTTPS: true,
+            attribution: 'Datenquelle: <a href="//www.basemap.at">basemap.at</a>',
+            subdomains: ['', '1', '2', '3', '4'],
+            bounds: [[46.358770, 8.782379], [49.037872, 17.189532]]
+        });
 
         this.tilesLoaded = new Promise((resolve) => {
             tiles.on("load", () => resolve());
@@ -87,6 +97,12 @@ export default class Game extends Component {
             });
         });
 	}
+    showOverlay() {
+        this.overlay.addTo(this.map);
+    }
+    removeOverlay() {
+        this.overlay && this.overlay.removeFrom(this.map);
+    }
 	timer(points) {
         this.setState({countdown: points});
     }
@@ -142,9 +158,16 @@ export default class Game extends Component {
     skip() {
         this.game.abortChallange();
     }
+    help() {
+        if (!this.map.hasLayer(this.overlay)) {
+            this.showOverlay();
+            this.game.reducePoints(30);
+        }
+    }
     next() {
         this.removeChallangeMarker();
         this.setState({state: undefined, challange: this.game.startAndGetChallange()});
+        this.removeOverlay();
     }
 	componentWillUnmount() {
 	    this.map.remove();
@@ -164,7 +187,7 @@ export default class Game extends Component {
 		    <div class={style.game}>
                 <div class={style.map} id="map"></div>
                 <div class={style.instructions}>
-                    <Instructions onSkip={() => this.skip()} onNext={() => this.next()} captionChallange="Finde" countdown={countdown} state={state} captionSelected={captionSelected} selected={selected} challange={challange} />
+                    <Instructions onSkip={() => this.skip()} onNext={() => this.next()} onHelp={() => this.help()} captionChallange="Finde" countdown={countdown} state={state} captionSelected={captionSelected} selected={selected} challange={challange} />
                 </div>
             </div>
                 );
