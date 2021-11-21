@@ -38,6 +38,7 @@ export default class GamePage extends Component {
             link: '/game/' + stateName + '/' + townName + "/" + gameName,
             caption: games[gameName]
         }];
+        const sharingUrl = '/game/' + stateName + '/' + townName;
         townName = urldecode(townName);
 		let content;
 		if (start) {
@@ -50,12 +51,12 @@ export default class GamePage extends Component {
 					<h2>{townName}</h2>
 					<img src="/assets/header.png" style="max-width: 100%; height: auto;"/>
 					<p>
-						Wie gut kennst sie sich in {name} aus?<br/>
+						Wie gut kennst sie sich in {townName} aus?<br/>
 						Testen sie ihr Wissen mit dem {games[gameName]} Suchspiel.
 					</p>
 					<button class={common.button} onClick={this.start}>Spiel starten</button>
 					<Highscore entries={highscore} />
-					<Sharing url={'/game/' + stateName + '/' + townName} name={urldecode(townName)} />
+					<Sharing url={sharingUrl} name={townName} />
 				</div>
 			);
 		}

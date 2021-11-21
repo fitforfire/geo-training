@@ -1,0 +1,10 @@
+{
+  "name": "functions-geo-training",
+  "description": "isomorphic Preact app",
+  "dependencies": {
+    "express": "^4.16.2",
+    "firebase": "^4.7.0",
+    "firebase-admin": "^5.5.1",
+    "firebase-functions": "^0.7.3"
+  }
+}
