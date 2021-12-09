@@ -48,7 +48,7 @@ export default class Home extends Component {
 					<p>
 						GeoTraning verwendet als Grunddaten für Adressen und Hofnamen die Daten des
 						"<a href="http://www.bev.gv.at/portal/page?_pageid=713,2601271&_dad=portal&_schema=PORTAL" target="_blank">
-						Österreichisches Adressregister, Stichtagsdaten vom 01.10.2017</a>"
+						Österreichisches Adressregister, Stichtagsdaten vom 01.10.2021</a>"
 						vom Bundesamt für Eich und Vermessungswesen.
 					</p>
 					<p>

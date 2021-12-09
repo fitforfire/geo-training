@@ -20,8 +20,19 @@
     margin: 0 5px;
 }
 
-.skip:not(:empty) {
+.helpAndSkip {
+    display: block;
     margin-top: 10px;
+}
+
+.skip:not(:empty) {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.help:not(:empty) {
+    display: inline-block;
+    margin-right: 20px;
     cursor: pointer;
 }
 
